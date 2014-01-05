@@ -24,6 +24,7 @@ def get_txt (filename):
 class Babelfish(object):
 
     def __init__(self):
+        """initialize a MeatMonsters collection from a config file"""
 
         with open ('babelfish.json', 'r') as conf:
             self.config = json.load(conf)
@@ -58,12 +59,12 @@ class Babelfish(object):
     def on_message(self, *args):
         """handles incoming messages from meatspace"""
         post = self.get_post (args[0])
-        match = re.search(r'(!tr)-(\w+) (.+) ', post['message'])
+        match = re.search(r'(!tr)-(\w+) (.+)', post['message'])
         if match:
             self.send_message(self.gs.translate(match.group(3), match.group(2)), self.gif, "babelfish")
 
     def run (self):
-        """start the bot"""
+        """start the monsters!"""
 
         with SocketIO(self.address) as socketIO_listen:
             socketIO_listen.on('message', self.on_message)
