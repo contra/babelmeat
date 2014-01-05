@@ -18,6 +18,9 @@ def get_gif (filename):
         gif = "data:image/gif;base64," + data
         return gif
 
+def get_txt (filename):
+    """create a collection from a text file"""
+
 class Babelfish(object):
 
     def __init__(self):
@@ -56,9 +59,12 @@ class Babelfish(object):
     def on_message(self, *args):
         """handles incoming messages from meatspace"""
         post = self.get_post (args[0])
-        match = re.search(r'(!tr)-(\w+) (.+)', post['message'])
-        if match:
-            self.send_message(self.gs.translate(match.group(3), match.group(2)), self.gif, "babelfish")
+        match = re.search(r'(!tr)-(\S+) (.+)', post['message'])
+        try:
+            if match:
+                self.send_message(self.gs.translate(match.group(3), match.group(2)), self.gif, "babelfish")
+        except:
+            pass
 
     def run (self):
         """start the monsters!"""
