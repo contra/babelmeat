@@ -18,9 +18,6 @@ def get_gif (filename):
         gif = "data:image/gif;base64," + data
         return gif
 
-def get_txt (filename):
-    """create a collection from a text file"""
-
 class Babelfish(object):
 
     def __init__(self):
